@@ -127,7 +127,7 @@ ARM Macro Assembler    Page 2
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
-ork --depend=.\pid_stm32.d -o.\pid_stm32.o -I.\RTE\_Lab6 -I"C:\users\miguel\Loc
+ork --depend=.\pid_stm32.d -o.\pid_stm32.o -I.\RTE\_Lab7 -I"C:\users\miguel\Loc
 
 
 

@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Lab6</TargetName>
+      <TargetName>Lab7</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
@@ -550,7 +550,7 @@
             <File>
               <FileName>Lab2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Lab7\src\Lab2.c</FilePath>
+              <FilePath>..\src\Lab2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -560,7 +560,7 @@
             <File>
               <FileName>Lab3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\Lab7\src\Lab3.c</FilePath>
+              <FilePath>..\src\Lab3.c</FilePath>
             </File>
           </Files>
         </Group>
