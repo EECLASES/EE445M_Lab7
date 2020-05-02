@@ -1,0 +1,15 @@
+.\esp8266.o: ..\RTOS_Labs_common\esp8266.c
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\esp8266.o: ..\RTOS_Labs_common\../inc/tm4c123gh6pm.h
+.\esp8266.o: ..\RTOS_Labs_common\../inc/CortexM.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/FIFO.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/UART0int.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/esp8266.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/WifiSettings.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/OS.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/OS.h
+.\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/PCB.h

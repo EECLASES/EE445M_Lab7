@@ -1,0 +1,13 @@
+.\commandexecute.o: ..\RTOS_Labs_common\CommandExecute.c
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/ST7735.h
+.\commandexecute.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/OS.h
+.\commandexecute.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/OS.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/PCB.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/ADC.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/UART0int.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/eFile.h
+.\commandexecute.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\commandexecute.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/loader.h
