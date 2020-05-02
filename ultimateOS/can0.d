@@ -1,5 +1,5 @@
 .\can0.o: ..\RTOS_Labs_common\can0.c
-.\can0.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\can0.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\can0.o: ..\RTOS_Labs_common\../inc/tm4c123gh6pm.h
 .\can0.o: ..\RTOS_Labs_common\../inc/hw_can.h
 .\can0.o: ..\RTOS_Labs_common\../inc/hw_ints.h

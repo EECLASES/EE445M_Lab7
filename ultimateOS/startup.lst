@@ -1083,11 +1083,11 @@ ARM Macro Assembler    Page 17
                        ***********************
   674 0000001C                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
-ork --depend=.\startup.d -o.\startup.o -I.\RTE\_Lab7 -I"C:\users\miguel\Local S
-ettings\Application Data\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123" 
--IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1"
- --predefine="TM4C123GH6PM SETA 1" --list=.\startup.lst startup.s
+ork --depend=.\startup.d -o.\startup.o -I.\RTE\_Lab7 -IC:\Users\Phat\AppData\Lo
+cal\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:\Keil_v5\ARM\CMSIS
+\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 52
+8" --predefine="_RTE_ SETA 1" --predefine="TM4C123GH6PM SETA 1" --list=.\startu
+p.lst startup.s
 
 
 
@@ -2513,4 +2513,4 @@ Symbol: __main
       At line 277 in file startup.s
 Comment: __main used once
 1 symbol
-478 symbols in table
+477 symbols in table

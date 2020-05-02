@@ -22,8 +22,14 @@
  */
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
+#include "../RTOS_Labs_common/OS.h"
 
 void (*WidePeriodicTask1)(void);   // user function
+
+static uint32_t Period;
+extern int32_t MaxJitter;             // largest time jitter between interrupts in usec
+extern uint32_t const JitterSize;
+extern uint32_t JitterHistogram1[];
 
 // ***************** WideTimer0A_Init ****************
 // Activate WideTimer0 interrupts to run user task periodically
@@ -39,6 +45,7 @@ void WideTimer1A_Init(void(*task)(void), uint32_t period, uint32_t priority){
   WTIMER1_CFG_R = 0x00000004;;    // 2) configure for 32-bit mode
   WTIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
   WTIMER1_TAILR_R = period-1;    // 4) reload value
+	Period = period;
 	//WTIMER1_TBILR_R = 0;           // bits 63:32
   WTIMER1_TAPR_R = 0;            // 5) bus clock resolution
   WTIMER1_ICR_R = 0x00000001;    // 6) clear WTIMER1A timeout flag TATORIS
@@ -53,7 +60,36 @@ void WideTimer1A_Init(void(*task)(void), uint32_t period, uint32_t priority){
 
 void WideTimer1A_Handler(void){
   WTIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge WTIMER5A timeout
-  (*WidePeriodicTask1)();            // execute user task
+	static uint32_t LastTime1 = 0;  // time at previous sample
+	volatile uint32_t thisTime;
+	uint32_t jitter;
+	
+	static uint32_t work1 = 0;
+	
+	thisTime = OS_Time();       // current time, 12.5 ns
+	work1++;
+	if(work1 > 1){	// ignore timing of first interrupt
+		uint32_t diff = OS_TimeDifference(LastTime1,thisTime);
+    if(diff>Period){
+       jitter = (diff-Period+4)/8;  // in 0.1 us 
+     }else{
+        jitter = (Period-diff+4)/8;  // in 0.1 us
+      }
+			
+			//dump[work1] = jitter;
+			
+      if(jitter > MaxJitter){
+        MaxJitter = jitter; // in usec
+      }       // jitter should be 0
+      if(jitter >= JitterSize){
+        jitter = JitterSize-1;
+      }
+      JitterHistogram1[jitter]++; 
+		}
+		
+		LastTime1 = thisTime;
+		
+	(*WidePeriodicTask1)();            // execute user task
 }
 void WideTimer1_Stop(void){
   NVIC_DIS2_R = 1<<30;          // 9) disable interrupt 94 in NVIC

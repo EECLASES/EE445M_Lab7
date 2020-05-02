@@ -128,6 +128,8 @@ static void addToActive(TCB* node){
 				
 				ActiveFoot->next->prev = node;
 				ActiveFoot->next = node;
+				
+				ActiveFoot = node;
 			}
 		} 
 		
@@ -853,9 +855,12 @@ int OS_AddPeriodicThread(void(*task)(void),
 	//timer code
 	static uint8_t periodicTasks = 0;
   
+	uint32_t sr = StartCritical();
 		 
-	if(priority > 5)
+	if(priority > 5){
+		EndCritical(sr);
 		return 0;
+	}
 
 	//Doesn't take priority into account rn? OKAY COOL 
 	if( periodicTasks == 0){	//WT1A is currently disabled
@@ -869,10 +874,11 @@ int OS_AddPeriodicThread(void(*task)(void),
 		WideTimer1B_Init( task, period, priority+2);
 		periodicTasks++;
 	}else{
-
+		EndCritical(sr);
 		return 0;
 	}
-	// will never reach (COMMENT BY MIGUEL)	
+		
+	EndCritical(sr);
 	return 1;
 };
 

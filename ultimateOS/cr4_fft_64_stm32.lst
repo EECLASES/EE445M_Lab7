@@ -643,18 +643,11 @@ xb4be,0x0c7c
   303 000002CE         
   304 000002CE                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
-ork --depend=.\cr4_fft_64_stm32.d -o.\cr4_fft_64_stm32.o -I.\RTE\_Lab7 -I"C:\us
-ers\miguel\Local Settings\Application Data\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device
-\Include\TM4C123" -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --
-predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 528" --predef
-ine="_RTE_ SETA 1" --predefine="TM4C123GH6PM SETA 1" --list=.\cr4_fft_64_stm32.
-
-
-
-ARM Macro Assembler    Page 11 
-
-
-lst ..\inc\cr4_fft_64_stm32.s
+ork --depend=.\cr4_fft_64_stm32.d -o.\cr4_fft_64_stm32.o -I.\RTE\_Lab7 -IC:\Use
+rs\Phat\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:
+\Keil_v5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISI
+ON_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="TM4C123GH6PM SETA 
+1" --list=.\cr4_fft_64_stm32.lst ..\inc\cr4_fft_64_stm32.s
 
 
 
@@ -730,13 +723,13 @@ Symbol: NPT
    Definitions
       At line 46 in file ..\inc\cr4_fft_64_stm32.s
    Uses
-      At line 135 in macro ϋ)°c&ERO_€υ)
+      At line 135 in macro @γί`γί€γί γί
       at line 223 in file ..\inc\cr4_fft_64_stm32.s
-      At line 137 in macro ϋ)°c&ERO_€υ)
+      At line 137 in macro @γί`γί€γί γί
       at line 223 in file ..\inc\cr4_fft_64_stm32.s
-      At line 139 in macro ϋ)°c&ERO_€υ)
+      At line 139 in macro @γί`γί€γί γί
       at line 223 in file ..\inc\cr4_fft_64_stm32.s
-      At line 141 in macro ϋ)°c&ERO_€υ)
+      At line 141 in macro @γί`γί€γί γί
       at line 223 in file ..\inc\cr4_fft_64_stm32.s
 
 1 symbol
@@ -755,4 +748,4 @@ Symbol: TableFFT
       None
 Comment: TableFFT unused
 1 symbol
-363 symbols in table
+362 symbols in table

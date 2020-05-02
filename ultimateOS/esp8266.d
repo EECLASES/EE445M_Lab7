@@ -1,9 +1,9 @@
 .\esp8266.o: ..\RTOS_Labs_common\esp8266.c
-.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h
-.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-.\esp8266.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\esp8266.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\esp8266.o: ..\RTOS_Labs_common\../inc/tm4c123gh6pm.h
 .\esp8266.o: ..\RTOS_Labs_common\../inc/CortexM.h
 .\esp8266.o: ..\RTOS_Labs_common\../RTOS_Labs_common/FIFO.h

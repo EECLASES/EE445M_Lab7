@@ -1,6 +1,6 @@
 .\os.o: ..\RTOS_Labs_common\OS.c
-.\os.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\os.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\os.o: ..\RTOS_Labs_common\../inc/tm4c123gh6pm.h
 .\os.o: ..\RTOS_Labs_common\../inc/CortexM.h
 .\os.o: ..\RTOS_Labs_common\../inc/PLL.h
@@ -20,4 +20,4 @@
 .\os.o: ..\RTOS_Labs_common\../inc/Timer5A.h
 .\os.o: ..\RTOS_Labs_common\../inc/WTimer1A.h
 .\os.o: ..\RTOS_Labs_common\../inc/WTimer1B.h
-.\os.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

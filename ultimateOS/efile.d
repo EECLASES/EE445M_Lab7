@@ -1,8 +1,8 @@
 .\efile.o: eFile.c
-.\efile.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\efile.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\efile.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\efile.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\efile.o: ../RTOS_Labs_common/OS.h
-.\efile.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\efile.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\efile.o: ../RTOS_Labs_common/../RTOS_Labs_common/OS.h
 .\efile.o: ../RTOS_Labs_common/../RTOS_Labs_common/PCB.h
 .\efile.o: ../RTOS_Labs_common/eFile.h

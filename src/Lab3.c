@@ -660,15 +660,16 @@ void Lab3Thread6(void){  // foreground thread
     PD0 ^= 0x01;        // debugging toggle bit 0  
   }
 }
-extern void Jitter(int32_t, uint32_t const, uint32_t [], uint32_t, uint8_t); // prints jitter information (write this)
+extern void Jitter(); // prints jitter information (write this)
 extern void jitterCalc(uint32_t num, uint32_t period);
 extern void jitterCalc2(uint32_t num, uint32_t period);
 extern uint32_t dump[300];
 void Lab3Thread7(void){  // foreground thread
   UART_OutString("\n\rEE345M/EE380L, Lab 3 Procedure 2\n\r");
   OS_Sleep(5000);   // 10 seconds        
-  Jitter(MaxJitter, JitterSize, JitterHistogram1, Period1, 1);  // print jitter information
-  Jitter(MaxJitter2, JitterSize2, JitterHistogram2, Period2, 2);  // print jitter of second thread
+  //Jitter(MaxJitter, JitterSize, JitterHistogram1, Period1, 1);  // print jitter information
+  //Jitter(MaxJitter2, JitterSize2, JitterHistogram2, Period2, 2);  // print jitter of second thread
+	Jitter();
 	/*for(int i = 240; i < 260; i++){
 		UART_OutUDec(dump[i]);
 		UART_OutString(" ");

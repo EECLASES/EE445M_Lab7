@@ -11,9 +11,19 @@
 
  ******************************************************************************/
 
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+typedef struct WifiStatus {
+	int8_t initEnable;
+	int8_t mode;
+	int MAC;
+	bool connected;
+} WifiStatus;
 
 
-
+void Jitter(void);
 
 /**
  * @details  Run the user interface.
@@ -23,3 +33,12 @@
  */
 void Interpreter(void);
 
+void Wifi_Switch(bool mode);
+void Wifi_Server(void);
+void Wifi_Client(bool mode);
+
+//Outstring code from labdoc
+void Interpreter_OutString(char *s);
+
+//Instring interpreter wrapper
+void Interpreter_InString(void);

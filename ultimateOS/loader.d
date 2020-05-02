@@ -1,11 +1,11 @@
 .\loader.o: loader.c
 .\loader.o: loader.h
 .\loader.o: elf.h
-.\loader.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\loader.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\loader.o: loader_config.h
-.\loader.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\loader.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
-.\loader.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\loader.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\loader.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\loader.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\loader.o: ff.h
 .\loader.o: integer.h
 .\loader.o: ffconf.h

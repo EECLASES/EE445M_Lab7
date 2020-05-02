@@ -97,7 +97,7 @@ void Idle(void){
 extern int TelnetServerID;
 //Telnet Task
 void TelnetTask(void) {
-	TelnetServerID = OS_Id();
+	//TelnetServerID = OS_Id();
 	Interpreter();
 	ESP8266_CloseTCPConnection();
 	OS_Kill();
