@@ -63,7 +63,7 @@ int32_t Lab2X[64],Lab2Y[64];           // input and output arrays for FFT
 uint32_t Lab2DataLab2Lost;     // data sent by Lab2Producer, but not received by Lab2Consumer
 extern int32_t MaxJitter;             // largest time jitter between interrupts in usec
 extern uint32_t const JitterSize;
-extern uint32_t JitterHistogram[];
+extern uint32_t JitterHistogram1[];
 
 #define PD0  (*((volatile uint32_t *)0x40007004))
 #define PD1  (*((volatile uint32_t *)0x40007008))
@@ -118,7 +118,7 @@ void Lab2DAS(void){
       if(jitter >= JitterSize){
         jitter = JitterSize-1;
       }
-      JitterHistogram[jitter]++; 
+      JitterHistogram1[jitter]++; 
     }
     LastTime = thisTime;
    ////PD0 ^= 0x01;
@@ -259,7 +259,7 @@ void Lab2PID(void){
   Lab2Coeff[2] = 64;    // 0.25 = 64/256 derivative coefficient*
   while(Lab2NumSamples < RUNLENGTH) { 
     for(err = -1000; err <= 1000; err++){    // made-up data
-      Lab2Actuator = Lab2PID_stm32(err,Lab2Coeff)/256;
+      Lab2Actuator = PID_stm32(err,Lab2Coeff)/256;
     }
     Lab2PIDWork++;        // calculation finished
   }
