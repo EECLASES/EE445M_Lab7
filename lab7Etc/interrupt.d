@@ -1,0 +1,9 @@
+.\interrupt.o: ..\driverlib\interrupt.c
+.\interrupt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\interrupt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\interrupt.o: ..\driverlib\../inc/hw_ints.h
+.\interrupt.o: ..\driverlib\../inc/hw_nvic.h
+.\interrupt.o: ..\driverlib\../inc/hw_types.h
+.\interrupt.o: ..\driverlib\../driverlib/cpu.h
+.\interrupt.o: ..\driverlib\../driverlib/debug.h
+.\interrupt.o: ..\driverlib\../driverlib/interrupt.h

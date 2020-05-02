@@ -1,0 +1,12 @@
+.\can.o: ..\inc\can.c
+.\can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\can.o: ..\inc\../inc/hw_can.h
+.\can.o: ..\inc\../inc/hw_ints.h
+.\can.o: ..\inc\../inc/hw_nvic.h
+.\can.o: ..\inc\../inc/hw_memmap.h
+.\can.o: ..\inc\../inc/hw_types.h
+.\can.o: ..\inc\../inc/can.h
+.\can.o: ..\inc\../driverlib/cpu.h
+.\can.o: ..\inc\../driverlib/debug.h
+.\can.o: ..\inc\../driverlib/interrupt.h
