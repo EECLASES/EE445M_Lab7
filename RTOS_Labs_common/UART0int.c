@@ -35,6 +35,7 @@
 #include "../inc/CortexM.h"
 #include "../RTOS_Labs_common/FIFO.h"
 #include "../RTOS_Labs_common/UART0int.h"
+#include "../RTOS_Labs_common/OS.h"
 
 #define NVIC_EN0_INT5           0x00000020  // Interrupt 5 enable
 
@@ -68,6 +69,10 @@
 AddIndexFifo(Rx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
 AddIndexFifo(Tx, 1024, char, FIFOSUCCESS, FIFOFAIL)
 
+Sema4Type UART0RxSema;
+Sema4Type UART0TxSema;
+
+
 // Initialize UART0
 // Baud rate is 115200 bits/sec
 void UART_Init(void){
@@ -90,6 +95,10 @@ void UART_Init(void){
   GPIO_PORTA_AFSEL_R |= 0x03;           // enable alt funct on PA1-0
   GPIO_PORTA_DEN_R |= 0x03;             // enable digital I/O on PA1-0
                                         // configure PA1-0 as UART
+	
+	OS_InitSemaphore(&UART0RxSema, 0);
+	OS_InitSemaphore(&UART0TxSema, FIFOSIZE - 1);
+	
   GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFFFFFF00)+0x00000011;
   GPIO_PORTA_AMSEL_R = 0;               // disable analog functionality on PA
                                         // UART0=priority 2
@@ -103,6 +112,7 @@ void static copyHardwareToSoftware(void){
   while(((UART0_FR_R&UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE - 1))){
     letter = UART0_DR_R;
     RxFifo_Put(letter);
+		OS_Signal(&UART0RxSema);
   }
 }
 // copy from software TX FIFO to hardware TX FIFO
@@ -111,6 +121,7 @@ void static copySoftwareToHardware(void){
   char letter;
   while(((UART0_FR_R&UART_FR_TXFF) == 0) && (TxFifo_Size() > 0)){
     TxFifo_Get(&letter);
+		OS_Signal(&UART0TxSema);
     UART0_DR_R = letter;
   }
 }
@@ -118,7 +129,9 @@ void static copySoftwareToHardware(void){
 // spin if RxFifo is empty
 char UART_InChar(void){
   char letter;
-  while(RxFifo_Get(&letter) == FIFOFAIL){};
+	OS_Wait(&UART0RxSema);
+	RxFifo_Get(&letter);
+  //while(RxFifo_Get(&letter) == FIFOFAIL){};
   return(letter);
 }
 
@@ -140,7 +153,9 @@ char UART_InCharNonBlock(void){
 // Output: none
 // spin if TxFifo full
 void UART_OutChar(char data){
-  while(TxFifo_Put(data) == FIFOFAIL){};
+  OS_Wait(&UART0TxSema);
+	TxFifo_Put(data);
+	//while(TxFifo_Put(data) == FIFOFAIL){};
   UART0_IM_R &= ~UART_IM_TXIM;          // disable TX FIFO interrupt
   copySoftwareToHardware();
   UART0_IM_R |= UART_IM_TXIM;           // enable TX FIFO interrupt
@@ -152,7 +167,7 @@ void UART_OutChar(char data){
 // Output: none
 // Error: return with lost data if TxFifo is full
 void UART_OutCharNonBlock(char data){
-  if(TxFifo_Put(data) == FIFOFAIL) return; // lost data
+	if(TxFifo_Put(data) == FIFOFAIL) return; // lost data
   UART0_IM_R &= ~UART_IM_TXIM;          // disable TX FIFO interrupt
   copySoftwareToHardware();
   UART0_IM_R |= UART_IM_TXIM;           // enable TX FIFO interrupt

@@ -6,3 +6,6 @@
 .\uart0int.o: ..\RTOS_Labs_common\../inc/CortexM.h
 .\uart0int.o: ..\RTOS_Labs_common\../RTOS_Labs_common/FIFO.h
 .\uart0int.o: ..\RTOS_Labs_common\../RTOS_Labs_common/UART0int.h
+.\uart0int.o: ..\RTOS_Labs_common\../RTOS_Labs_common/OS.h
+.\uart0int.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/OS.h
+.\uart0int.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/PCB.h
