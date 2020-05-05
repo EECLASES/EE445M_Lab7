@@ -915,7 +915,7 @@ void GPIOPortF_Handler(void){
 	}else if(!(GPIO_PORTF_DATA_R & 0x00000001)){
 		(*PF0task)();
 	}
-	PF1 ^= 0x02;
+	//PF1 ^= 0x02;
 	
 	/*GPIO_PORTF_ICR_R = 0x10;      // acknowledge flag
 	//PF1 ^= 0x02;

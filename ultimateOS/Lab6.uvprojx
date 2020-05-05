@@ -542,6 +542,16 @@
               <FileType>1</FileType>
               <FilePath>..\RTOS_Labs_common\CommandExecute.c</FilePath>
             </File>
+            <File>
+              <FileName>Pong.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pong.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pong.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Pong.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -44,7 +44,7 @@
 #include "../RTOS_Labs_common/eDisk.h"
 #include "../RTOS_Labs_common/can0.h"
 #include "../RTOS_Labs_common/esp8266.h"
-
+#include "./Pong.h"
 
 // CAN IDs are set dynamically at time of CAN0_Open
 // Reverse on other microcontroller
@@ -486,7 +486,19 @@ int Testmain3(void){   // Testmain3
   return 0;               // this never executes
 }
 
+int AppMain(void){
+	OS_Init();           // initialize, disable interrupts
+  PortD_Init();
+	
+	NumCreated = 0 ;
+  NumCreated += OS_AddThread(&Idle,128,5); 
+  NumCreated += OS_AddThread(&Pong,128,1);
+
+	OS_Launch(TIME_1MS);	
+	return 0;
+}
+
 //*******************Trampoline for selecting main to execute**********
 int main(void) { 			// main
-  Testmain2();
+  AppMain();
 }
