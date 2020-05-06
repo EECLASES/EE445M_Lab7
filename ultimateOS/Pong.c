@@ -9,19 +9,51 @@
 //Globals
 #define WIN_SCORE 5
 static uint32_t Score[2];
-static bool AIStop = false;
+static bool GameEnd;
 static Sema4Type ScoreMutex;	//just incase score critical section
 static Sema4Type Win;	//tells pong when win has been met
 
 ball_t Ball;
 paddle_t Paddles[2];	//0 is user 1 is 'AI'
 
-//Game is vertical screen
-//X goes 0 -> max
-//Y goes 0 v max
-static void init(){
+//AI for paddle
+static void PaddleAI(void){	
+	while(!GameEnd){
+		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_BLACK);
+		if(Ball.x < Paddles[1].x){
+			
+//			if(rand() % 20 != 0){	
+				Paddles[1].x -= 2;
+//			}else{	//5% chance of moving other way
+//				Paddles[1].x += 2;
+//			}
+		}
+		if(Ball.x > (Paddles[1].x + Paddles[1].w)){
+			
+//			if(rand() % 20 != 0){
+				Paddles[1].x += 2;
+//			}else{
+//				Paddles[1].x -= 2;
+//			}
+		}
+		
+		if(Paddles[1].x < 0){
+				Paddles[1].x = 0;
+		}
+		if(Paddles[1].x + Paddles[1].w >= ST7735_TFTWIDTH){
+				Paddles[1].x = ST7735_TFTWIDTH - Paddles[1].w;
+		}
+		
+		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_WHITE);
+		
+		OS_Sleep(125);	//a little slower than ball
+	}
 	
-	//Ball initialization
+	OS_Kill();
+}
+
+//resets ball to middle for now
+static void BallReset(void){
 	//base size - powerups later?
 	Ball.h = BALL_BASE_H;
 	Ball.w = BALL_BASE_W;
@@ -30,9 +62,17 @@ static void init(){
 	Ball.x = (ST7735_TFTWIDTH / 2) - Ball.w;	
 	Ball.y = (ST7735_TFTHEIGHT / 2) - Ball.h;
 	
-	//Don't know what initial values would be, just moves down right for now
-	Ball.dx = 1;
-	Ball.dy = 1;
+	Ball.dx = 2 * (rand() % 2) - 1;	//random with 2PAM symbol eq
+	Ball.dy = 2 * (rand() % 2) - 1;
+	
+	 
+}
+
+
+//Game is vertical screen
+//X goes 0 -> max
+//Y goes 0 v max
+static void init(){
 	
 	//Player paddle initialization
 	//base size
@@ -58,9 +98,10 @@ static void init(){
 	
 	//LCD screen
 	ST7735_FillScreen(ST7735_BLACK);
-	ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
 	ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_WHITE);
 	ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_WHITE);
+	
+	
 }
 
 static bool CollisionCheck(ball_t ball, paddle_t paddle){
@@ -90,30 +131,49 @@ static bool CollisionCheck(ball_t ball, paddle_t paddle){
 	return false;
 }
 
-static void PaddleAI(void){	
-	while(!AIStop){
-		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_BLACK);
-		if(Ball.x < Paddles[1].x){
-			Paddles[1].x -= 1;
+//moves the ball and detects collision
+static void MoveBall(void){
+	
+	BallReset();
+	
+	while(1){
+		ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_BLACK);
+		
+		Ball.x += Ball.dx;
+		Ball.y += Ball.dy;
+		
+		//scoring check
+		if(Ball.y < Paddles[1].y){	
+			Score[0]++;
+			OS_Signal(&ScoreMutex);
 			
-			if(Paddles[1].x < 0){
-				Paddles[1].x = 0;
-			}
+			break;
 		}
-		if(Ball.x > (Paddles[1].x + Paddles[1].w)){
-			Paddles[1].x += 1;
+		if(Ball.y > (Paddles[0].y + Paddles[0].h)){	
+			Score[1]++;
+			OS_Signal(&ScoreMutex);
 			
-			if(Paddles[1].x + Paddles[1].w >= ST7735_TFTWIDTH){
-				Paddles[1].x = ST7735_TFTWIDTH - Paddles[1].w;
-			}
+			break;
 		}
 		
-		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_WHITE);
+		//collision check
+		if(Ball.x <= 0 || Ball.x >= ST7735_TFTWIDTH - Ball.w){
+			//bounce off side walls
+			Ball.dx *= -1;
+		}
+		if(CollisionCheck(Ball, Paddles[0])){
+			Ball.dy *= -1;
+		}
+		if(CollisionCheck(Ball, Paddles[1])){
+			Ball.dy *= -1;
+		}
 		
-		OS_Sleep(150);	//a little slower than ball
+		//draw new ball position
+		ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
+		
+		OS_Sleep(100);
 	}
 	
-	AIStop = false;
 	OS_Kill();
 }
 
@@ -128,65 +188,14 @@ static void UpdateScore(void){
 		
 		if(Score[0] == WIN_SCORE || Score[1] == WIN_SCORE){
 			OS_Signal(&Win);
+			OS_Kill();
 		}
+		
+		OS_AddThread(&MoveBall, 512, 2);
 		
 		OS_Wait(&ScoreMutex);
 	}
 
-}
-
-static void BallReset(void){
-	//base size - powerups later?
-	Ball.h = BALL_BASE_H;
-	Ball.w = BALL_BASE_W;
-	
-	//place ball in middle-ish
-	Ball.x = (ST7735_TFTWIDTH / 2) - Ball.w;	
-	Ball.y = (ST7735_TFTHEIGHT / 2) - Ball.h;
-	
-	Ball.dx = 2 * (rand() % 2) - 1;	//random with 2PAM symbol eq
-	Ball.dy = 2 * (rand() % 2) - 1;
-	
-	OS_AddThread(&PaddleAI,512, 4); 
-}
-
-//moves the ball and detects collision
-static void MoveBall(void){
-	ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_BLACK);
-	
-	Ball.x += Ball.dx;
-	Ball.y += Ball.dy;
-	
-	//scoring check
-	if(Ball.y < Paddles[1].y){	
-		Score[0]++;
-		OS_Signal(&ScoreMutex);
-		
-		BallReset();
-	}
-	if(Ball.y > (Paddles[0].y + Paddles[0].h)){	
-		Score[1]++;
-		OS_Signal(&ScoreMutex);
-		
-		BallReset();
-	}
-	
-	//collision check
-	if(Ball.x <= 0 || Ball.x >= ST7735_TFTWIDTH - Ball.w){
-		//bounce off side walls
-		Ball.dx *= -1;
-	}
-	if(CollisionCheck(Ball, Paddles[0])){
-		Ball.dy *= -1;
-		OS_AddThread(&PaddleAI, 512, 4);	//start moving AI
-	}
-	if(CollisionCheck(Ball, Paddles[1])){
-		Ball.dy *= -1;
-		AIStop = true;
-	}
-	
-	//draw new ball position
-	ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
 }
 
 static void PlayerLeft(void){
@@ -220,17 +229,18 @@ void Pong(){
 	OS_InitSemaphore(&ScoreMutex, 0);
 	OS_InitSemaphore(&Win, 0);
 	
-	OS_AddPeriodicThread(&MoveBall, 100*TIME_1MS, 2);	//1 second period for now
+	GameEnd = false;
+	
 	OS_AddSW1Task(&PlayerRight, 1);
 	OS_AddSW2Task(&PlayerLeft, 1);	//double check the buttons!!!!!!
 	
-	OS_AddThread(&UpdateScore, 512, 3);
-	
+	OS_AddThread(&UpdateScore, 512, 2);
+	OS_AddThread(&PaddleAI,512, 4);
+	OS_AddThread(&MoveBall, 512, 3);	
+
 	OS_Wait(&Win);
-	
-	//stop periodic interrupt
-	WideTimer1_Stop();		//!!!!!!! needs to be better way to do this
-	
+		
+	GameEnd = true;
 	//game over screen
 	ST7735_FillScreen(ST7735_BLACK);
 	ST7735_SetCursor(0, 0);

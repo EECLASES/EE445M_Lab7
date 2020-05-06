@@ -1,5 +1,5 @@
 
-#define PADDLE_PADDING 6 
+#define PADDLE_PADDING 10
 #define PADDLE_BASE_W 16 
 #define PADDLE_BASE_H 4
 #define BALL_BASE_W 4 
