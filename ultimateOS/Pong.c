@@ -28,7 +28,7 @@ static void PaddleAI(void){
 //				Paddles[1].x += 2;
 //			}
 		}
-		if(Ball.x > (Paddles[1].x + Paddles[1].w)){
+		if((Ball.x + Ball.w) > (Paddles[1].x + Paddles[1].w)){
 			
 //			if(rand() % 20 != 0){
 				Paddles[1].x += 2;
@@ -46,7 +46,7 @@ static void PaddleAI(void){
 		
 		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_WHITE);
 		
-		OS_Sleep(125);	//a little slower than ball
+		OS_Sleep(150);	//a little slower than ball
 	}
 	
 	OS_Kill();
@@ -171,7 +171,7 @@ static void MoveBall(void){
 		//draw new ball position
 		ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
 		
-		OS_Sleep(100);
+		OS_Sleep(125);
 	}
 	
 	OS_Kill();
@@ -238,6 +238,9 @@ void Pong(){
 	OS_AddThread(&PaddleAI,512, 4);
 	OS_AddThread(&MoveBall, 512, 3);	
 
+//	OS_Sleep(120);
+//	OS_AddThread(&MoveBall, 512, 3);
+	
 	OS_Wait(&Win);
 		
 	GameEnd = true;

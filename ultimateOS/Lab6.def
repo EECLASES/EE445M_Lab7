@@ -1,4 +1,4 @@
-#<SYMDEFS># ARM Linker, 5060750: Last Updated: Tue May 05 19:49:52 2020
+#<SYMDEFS># ARM Linker, 5060750: Last Updated: Tue May 05 20:04:52 2020
 0x00000000 N __ARM_use_no_argv
 0x00000000 D __Vectors
 0x00000000 N _printf_a
@@ -133,7 +133,7 @@
 0x00000283 T Timer3B_Handler
 0x00000283 T Timer4A_Handler
 0x00000283 T Timer4B_Handler
-0x00001fa1 T Timer5A_Handler
+0x00001fa9 T Timer5A_Handler
 0x00000283 T Timer5B_Handler
 0x00000283 T UART1_Handler
 0x00000283 T UART3_Handler
@@ -144,8 +144,8 @@
 0x00000283 T USB0_Handler
 0x00000283 T WDT_Handler
 0x00000283 T WideTimer0B_Handler
-0x000023ad T WideTimer1A_Handler
-0x00002451 T WideTimer1B_Handler
+0x000023b5 T WideTimer1A_Handler
+0x00002459 T WideTimer1B_Handler
 0x00000283 T WideTimer2A_Handler
 0x00000283 T WideTimer2B_Handler
 0x00000283 T WideTimer3A_Handler
@@ -195,23 +195,23 @@
 0x00000d59 T IntEnable
 0x0000104d T OS_AddThread
 0x00001131 T OS_Init
-0x000016bd T PortD_Init
-0x00001725 T ReceiveDataFilter
-0x0000187d T RxFifo_Put
-0x000018b9 T RxFifo_Size
-0x00001f35 T SysTick_Handler
-0x00002019 T TxFifo_Get
-0x00002069 T TxFifo_Put
-0x000020a5 T TxFifo_Size
-0x000020bd T UART0_Handler
-0x00002115 T UART2_Handler
-0x00002285 T UART_OutCharNonBlock
-0x00002331 T WideTimer0A_Handler
-0x000024f5 T __scatterload_copy
-0x00002503 T __scatterload_null
-0x00002505 T __scatterload_zeroinit
-0x00003181 T main
-0x00003f7e D ReceiveDataSearchString
+0x000016c5 T PortD_Init
+0x0000172d T ReceiveDataFilter
+0x00001885 T RxFifo_Put
+0x000018c1 T RxFifo_Size
+0x00001f3d T SysTick_Handler
+0x00002021 T TxFifo_Get
+0x00002071 T TxFifo_Put
+0x000020ad T TxFifo_Size
+0x000020c5 T UART0_Handler
+0x0000211d T UART2_Handler
+0x0000228d T UART_OutCharNonBlock
+0x00002339 T WideTimer0A_Handler
+0x000024fd T __scatterload_copy
+0x0000250b T __scatterload_null
+0x0000250d T __scatterload_zeroinit
+0x00003189 T main
+0x00003f86 D ReceiveDataSearchString
 0x20000000 D IntTerm
 0x20000002 D PrevError
 0x20000004 D NumCreated
