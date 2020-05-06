@@ -13,14 +13,23 @@ static bool GameEnd;
 static Sema4Type ScoreMutex;	//just incase score critical section
 static Sema4Type Win;	//tells pong when win has been met
 
+static Sema4Type GoRight;	
+static Sema4Type GoLeft;	//step towards closing critical section for player
+
+static Sema4Type PlayerPadMutex;
+static Sema4Type AIPadMutex;
+
+
 ball_t Ball;
 paddle_t Paddles[2];	//0 is user 1 is 'AI'
 
 //AI for paddle
 static void PaddleAI(void){	
 	while(!GameEnd){
+		OS_Wait(&AIPadMutex);
+		
 		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_BLACK);
-		if(Ball.x < Paddles[1].x){
+		if(Ball.x < Paddles[1].x){	//if there was a way to make AI without relying on the ball (global), we could make multiple balls
 			
 //			if(rand() % 20 != 0){	
 				Paddles[1].x -= 2;
@@ -45,6 +54,8 @@ static void PaddleAI(void){
 		}
 		
 		ST7735_FillRect(Paddles[1].x, Paddles[1].y, Paddles[1].w, Paddles[1].h, ST7735_WHITE);
+		
+		OS_Signal(&AIPadMutex);
 		
 		OS_Sleep(150);	//a little slower than ball
 	}
@@ -142,6 +153,9 @@ static void MoveBall(void){
 		Ball.x += Ball.dx;
 		Ball.y += Ball.dy;
 		
+//		OS_Wait(&AIPadMutex);
+//		OS_Wait(&PlayerPadMutex);
+		
 		//scoring check
 		if(Ball.y < Paddles[1].y){	
 			Score[0]++;
@@ -168,11 +182,17 @@ static void MoveBall(void){
 			Ball.dy *= -1;
 		}
 		
+//		OS_Signal(&AIPadMutex);
+//		OS_Signal(&PlayerPadMutex);
+		
 		//draw new ball position
 		ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
 		
 		OS_Sleep(125);
 	}
+	
+//	OS_Signal(&AIPadMutex);
+//	OS_Signal(&PlayerPadMutex);
 	
 	OS_Kill();
 }
@@ -199,47 +219,77 @@ static void UpdateScore(void){
 }
 
 static void PlayerLeft(void){
-	ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_BLACK);
+	while(!GameEnd){
+		OS_Wait(&GoLeft);
+		
+		OS_Wait(&PlayerPadMutex);
+		ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_BLACK);
+		
+		Paddles[0].x -= 2;
+		
+		if(Paddles[0].x <= 0){
+			Paddles[0].x = 0;
+		}
+		
+		ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_WHITE);
+		OS_Signal(&PlayerPadMutex);
+		
+	}	
 	
-	Paddles[0].x -= 2;
-	
-	if(Paddles[0].x <= 0){
-		Paddles[0].x = 0;
-	}
-	
-	ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_WHITE);
+	OS_Kill();
 }
 
 static void PlayerRight(void){
-	ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_BLACK);
-	
-	Paddles[0].x += 2;
-	
-	if(Paddles[0].x + Paddles[0].w >= ST7735_TFTWIDTH){
-		Paddles[0].x = ST7735_TFTWIDTH - Paddles[0].w;
+	while(!GameEnd){
+		OS_Wait(&GoRight);
+		
+		OS_Wait(&PlayerPadMutex);
+		ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_BLACK);
+		
+		Paddles[0].x += 2;
+		
+		if(Paddles[0].x + Paddles[0].w >= ST7735_TFTWIDTH){
+			Paddles[0].x = ST7735_TFTWIDTH - Paddles[0].w;
+		}
+		
+		ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_WHITE);
+		OS_Signal(&PlayerPadMutex);
 	}
 	
-	ST7735_FillRect(Paddles[0].x, Paddles[0].y, Paddles[0].w, Paddles[0].h, ST7735_WHITE);
+	OS_Kill();
 }
 
+static void SignalLeft(){
+	OS_Signal(&GoLeft);
+}
+
+static void SignalRight(){
+	OS_Signal(&GoRight);
+}
 
 void Pong(){
 	
 	init();
 	OS_InitSemaphore(&ScoreMutex, 0);
 	OS_InitSemaphore(&Win, 0);
+	OS_InitSemaphore(&GoLeft, 0);
+	OS_InitSemaphore(&GoRight, 0);
+	OS_InitSemaphore(&AIPadMutex, 1);
+	OS_InitSemaphore(&PlayerPadMutex, 1);
 	
 	GameEnd = false;
 	
-	OS_AddSW1Task(&PlayerRight, 1);
-	OS_AddSW2Task(&PlayerLeft, 1);	//double check the buttons!!!!!!
+	OS_AddSW1Task(&SignalRight, 1);
+	OS_AddSW2Task(&SignalLeft, 1);	//double check the buttons!!!!!!
 	
 	OS_AddThread(&UpdateScore, 512, 2);
 	OS_AddThread(&PaddleAI,512, 4);
-	OS_AddThread(&MoveBall, 512, 3);	
+	OS_AddThread(&MoveBall, 512, 3);
+	OS_AddThread(&PlayerRight,512, 1);
+	OS_AddThread(&PlayerLeft, 512, 1);	
 
 //	OS_Sleep(120);
-//	OS_AddThread(&MoveBall, 512, 3);
+//	OS_AddThread(&MoveBall, 512, 3); can't have multiple rn because AI depends on a (global) ball's position
 	
 	OS_Wait(&Win);
 		
