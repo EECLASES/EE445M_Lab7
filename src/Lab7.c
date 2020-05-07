@@ -526,5 +526,6 @@ int AppMain(void){
 
 //*******************Trampoline for selecting main to execute**********
 int main(void) { 			// main
-  AppMain();
+  //AppMain();
+	Lab3Testmain7();
 }

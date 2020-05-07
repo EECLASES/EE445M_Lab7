@@ -729,7 +729,7 @@ uint32_t WaitLab3Count3;     // number of times s is successfully waited on
 #define MAXCOUNT 20000
 void OutputLab3Thread(void){  // foreground thread
   UART_OutString("\n\rEE445M/EE380L, Lab 3 Procedure 4\n\r");
-  while(SignalLab3Count1+SignalLab3Count2+SignalLab3Count3<100*MAXCOUNT){
+  while(SignalLab3Count1+SignalLab3Count2+SignalLab3Count3<3*MAXCOUNT){
     OS_Sleep(1000);   // 1 second
     UART_OutString(".");
   }  
@@ -767,7 +767,9 @@ void Signal1(void){      // called every 799us in background
     OS_Signal(&s);
     SignalLab3Count1++;
   }else{
-		//UART_OutString("Signal1 done \n\r");
+		UART_OutString("Signal1 done in ");
+		UART_OutUDec(OS_MsTime());
+		UART_OutString("ms \n\r");
 		//OS_Kill();
 		WTIMER1_CTL_R &= ~0x00000001;    // 1) disable WTIMER1A
 	}
@@ -778,17 +780,21 @@ void Signal2(void){       // called every 1111us in background
     OS_Signal(&s);
     SignalLab3Count2++;
   }else{
-		//UART_OutString("Signal2 done \n\r");
+		UART_OutString("Signal2 done in ");
+		UART_OutUDec(OS_MsTime());
+		UART_OutString("ms \n\r");
 		//OS_Kill();
 		WTIMER1_CTL_R &= ~0x00000100;    // 1) disable WTIMER1B
 	}
 }
 void Signal3(void){       // foreground
-  while(SignalLab3Count3<98*MAXCOUNT){
+  while(SignalLab3Count3<1*MAXCOUNT){
     OS_Signal(&s);
     SignalLab3Count3++;
   }
-	//UART_OutString("Signal3 done \n\r");
+	UART_OutString("Signal3 done in ");
+	UART_OutUDec(OS_MsTime());
+	UART_OutString("ms \n\r");
   OS_Kill();
 }
 
@@ -812,11 +818,11 @@ int Lab3Testmain7(void){      // Lab3Testmain7  Lab 3
   OS_AddPeriodicThread(&Signal1,(799*TIME_1MS)/1000,0);   // 0.799 ms, higher priority
   OS_AddPeriodicThread(&Signal2,(1111*TIME_1MS)/1000,1);  // 1.111 ms, lower priority
   Lab3NumCreated = 0 ;
-  Lab3NumCreated += OS_AddThread(&OutputLab3Thread,128,3);   // results output thread
+  Lab3NumCreated += OS_AddThread(&OutputLab3Thread,128,2);   // results output thread
   Lab3NumCreated += OS_AddThread(&Signal3,128,2);   // signalling thread
-  Lab3NumCreated += OS_AddThread(&Wait1,128,3);   // waiting thread
-  Lab3NumCreated += OS_AddThread(&Wait2,128,3);   // waiting thread
-  Lab3NumCreated += OS_AddThread(&Wait3,128,3);   // waiting thread
+  Lab3NumCreated += OS_AddThread(&Wait1,128,2);   // waiting thread
+  Lab3NumCreated += OS_AddThread(&Wait2,128,2);   // waiting thread
+  Lab3NumCreated += OS_AddThread(&Wait3,128,2);   // waiting thread
   Lab3NumCreated += OS_AddThread(&Lab3Thread6,128,5);      // idle thread to keep from crashing
  
   OS_Launch(TIME_1MS);  // 1ms, doesn't return, interrupts enabled in here
