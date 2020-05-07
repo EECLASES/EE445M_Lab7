@@ -1407,7 +1407,29 @@ void ST7735_OutUDec2(uint32_t n, uint32_t l){
 //        value   signed integer to be printed
 void ST7735_Message(uint32_t  d, uint32_t  l, char *pt, int32_t value){
   // write this as part of Labs 1 and 2
-
+		OS_bWait(&LCDFree); 
+	//uint32_t sr = StartCritical();
+	
+	uint32_t row = 0;
+	if(d == 1){
+		row = 8 + l;		//bottom section of screen
+	}else{
+		row = l;
+	}
+	ST7735_SetCursor(0, row);
+	
+	ST7735_OutString(pt);
+	
+	ST7735_OutChar(' ');
+	
+	if(value < 0){
+		ST7735_OutChar('-');
+		value *= -1;
+	}
+	
+	ST7735_OutUDec(value);
+	
+	OS_bSignal(&LCDFree);
 }
 
 //-----------------------ST7735_OutUDec4-----------------------
