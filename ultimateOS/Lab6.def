@@ -1,4 +1,4 @@
-#<SYMDEFS># ARM Linker, 5060750: Last Updated: Thu May 07 17:29:12 2020
+#<SYMDEFS># ARM Linker, 5060750: Last Updated: Thu May 07 18:05:39 2020
 0x00000000 N __ARM_use_no_argv
 0x00000000 D __Vectors
 0x00000000 N _printf_a

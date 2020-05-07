@@ -363,147 +363,12 @@ int Lab3Realmain(void){ // Lab3Realmain
 //+++++++++++++++++++++++++DEBUGGING CODE++++++++++++++++++++++++
 // ONCE YOUR RTOS WORKS YOU CAN COMMENT OUT THE REMAINING CODE
 // 
-//*******************Initial TEST**********
-// This is the simplest configuration, test this first, (Lab 2 part 1)
-// run this with 
-// no UART interrupts
-// no SYSTICK interrupts
-// no timer interrupts
-// no switch interrupts
-// no ADC serial port or LCD output
-// no calls to semaphores
+
 uint32_t Lab3Count1;   // number of times thread1 loops
 uint32_t Lab3Count2;   // number of times thread2 loops
 uint32_t Lab3Count3;   // number of times thread3 loops
 uint32_t Lab3Count4;   // number of times thread4 loops
 uint32_t Lab3Count5;   // number of times thread5 loops
-void Lab3Thread1(void){
-  Lab3Count1 = 0;          
-  for(;;){
-    PD0 ^= 0x01;       // heartbeat
-    Lab3Count1++;
-    OS_Suspend();      // cooperative multitasking
-  }
-}
-void Lab3Thread2(void){
-  Lab3Count2 = 0;          
-  for(;;){
-    PD1 ^= 0x02;       // heartbeat
-    Lab3Count2++;
-    OS_Suspend();      // cooperative multitasking
-  }
-}
-void Lab3Thread3(void){
-  Lab3Count3 = 0;          
-  for(;;){
-    PD2 ^= 0x04;       // heartbeat
-    Lab3Count3++;
-    OS_Suspend();      // cooperative multitasking
-  }
-}
-
-int Lab3Testmain1(void){  // Lab3Testmain1
-  OS_Init();          // initialize, disable interrupts
-  Lab3PortD_Init();       // profile user threads
-  Lab3NumCreated = 0 ;
-  Lab3NumCreated += OS_AddThread(&Lab3Thread1,128,0); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread2,128,0); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread3,128,0); 
-  // Lab3Count1 Lab3Count2 Lab3Count3 should be equal or off by one at all times
-  OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here
-  return 0;            // this never executes
-}
-
-//*******************Second TEST**********
-// Once the initalize test runs, test this (Lab 2 part 1)
-// no UART interrupts
-// SYSTICK interrupts, with or without period established by OS_Launch
-// no timer interrupts
-// no switch interrupts
-// no ADC serial port or LCD output
-// no calls to semaphores
-void Lab3Thread1b(void){
-  Lab3Count1 = 0;          
-  for(;;){
-    PD0 ^= 0x01;       // heartbeat
-    Lab3Count1++;
-  }
-}
-void Lab3Thread2b(void){
-  Lab3Count2 = 0;          
-  for(;;){
-    PD1 ^= 0x02;       // heartbeat
-    Lab3Count2++;
-  }
-}
-void Lab3Thread3b(void){
-  Lab3Count3 = 0;          
-  for(;;){
-    PD2 ^= 0x04;       // heartbeat
-    Lab3Count3++;
-  }
-}
-
-int Lab3Testmain2(void){  // Lab3Testmain2
-  OS_Init();          // initialize, disable interrupts
-  Lab3PortD_Init();       // profile user threads
-  Lab3NumCreated = 0 ;
-  Lab3NumCreated += OS_AddThread(&Lab3Thread1b,128,0); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread2b,128,0); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread3b,128,0); 
-  // Lab3Count1 Lab3Count2 Lab3Count3 should be equal on average
-  // counts are larger than Lab3Testmain1
- 
-  OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here
-  return 0;            // this never executes
-}
-
-//*******************Third TEST**********
-// Once the second test runs, test this (Lab 2 part 2)
-// no UART interrupts
-// SYSTICK interrupts, with or without period established by OS_Launch
-// no timer interrupts
-// no switch interrupts
-// no ADC serial port or LCD output
-// no calls to semaphores
-// tests AddLab3Thread, Sleep and Kill
-void Lab3Thread1c(void){ int i;
-  Lab3Count1 = 0;          
-  for(i=0;i<=42;i++){
-    PD0 ^= 0x01;       // heartbeat
-    Lab3Count1++;
-  }
-  OS_Kill();
-  Lab3Count1 = 0;
-}
-void Lab3Thread2c(void){
-  Lab3Count2 = 0;          
-  for(;;){
-    PD1 ^= 0x02;       // heartbeat
-    Lab3Count2++;
-    Lab3NumCreated += OS_AddThread(&Lab3Thread1c,128,0); 
-    OS_Sleep(5);
-  }
-}
-void Lab3Thread3c(void){
-  Lab3Count3 = 0;          
-  for(;;){
-    PD2 ^= 0x04;       // heartbeat
-    Lab3Count3++;
-  }
-}
-
-int Lab3Testmain3(void){  // Lab3Testmain3
-  OS_Init();          // initialize, disable interrupts
-  Lab3PortD_Init();       // profile user threads
-  Lab3NumCreated = 0 ;
-  Lab3NumCreated += OS_AddThread(&Lab3Thread2c,128,0); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread3c,128,0); 
-  // Lab3Count3 should be larger than Lab3Count2, Lab3Count1 should be 42
- 
-  OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here
-  return 0;            // this never executes
-}
 
 //*******************Fourth TEST**********
 // Once the third test runs, test this (Lab 2 part 2 and Lab 3)
@@ -597,17 +462,20 @@ void Lab3Thread2e(void){
   Lab3Count2 = 0;          
   for(;;){
     OS_bWait(&Readye);
+		//PF1 ^= 0x02;
     Lab3Count2++;     // Lab3Count2 should be equal to Lab3Count1
   }
 }
 void Lab3Thread3e(void){
   Lab3Count3 = 0;          
   for(;;){
+		//PF2 ^= 0x04;
     Lab3Count3++;     // Lab3Count3 should be large
   }
 }
 void Lab3Thread4e(void){ int i;
   for(i=0;i<640;i++){
+		//PF3 ^= 0x08;
     Lab3Count4++;     // Lab3Count4 should increase on button press
     OS_Sleep(1);
   }
@@ -627,8 +495,8 @@ int Lab3Testmain5(void){   // Lab3Testmain5
   OS_AddPeriodicThread(&BackgroundLab3Thread1e,PERIOD1,0); 
   OS_AddSW1Task(&BackgroundLab3Thread5e,2);
   Lab3NumCreated += OS_AddThread(&Lab3Thread2e,128,0); // Lab 3 set to highest priority
-  //Lab3NumCreated += OS_AddThread(&Lab3Thread3e,128,1); 
-  Lab3NumCreated += OS_AddThread(&Lab3Thread4e,128,1); 
+  Lab3NumCreated += OS_AddThread(&Lab3Thread3e,128,2); 
+  Lab3NumCreated += OS_AddThread(&Lab3Thread4e,128,2); 
   OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here
   return 0;            // this never executes
 }
@@ -680,7 +548,7 @@ void Lab3Thread7(void){  // foreground thread
 #define workA 500       // {5,50,500 us} work in Task A
 #define counts1us 1    // number of OS_Time counts per 1us
 void TaskA(void){       // called every {1000, 2990us} in background
-	jitterCalc(0, 10*TIME_1MS);
+	//jitterCalc(0, 10*TIME_1MS);
   PD1 = 0x02;      // debugging profile  
   Lab3CountA++;
   PseudoWork(workA*counts1us); //  do work (100ns time resolution)
@@ -688,7 +556,7 @@ void TaskA(void){       // called every {1000, 2990us} in background
 }
 #define workB 250       // 250 us work in Task B
 void TaskB(void){       // called every pB in background
-	jitterCalc(1, 20*TIME_1MS);							//!!!!!! bad jitter time because of UART and/or LCD
+	//jitterCalc(1, 20*TIME_1MS);							//!!!!!! bad jitter time because of UART and/or LCD
   PD2 = 0x04;      // debugging profile  
   Lab3CountB++;
   PseudoWork(workB*counts1us); //  do work (100ns time resolution)

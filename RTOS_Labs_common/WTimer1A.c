@@ -72,22 +72,22 @@ void WideTimer1A_Handler(void){
 		uint32_t diff = OS_TimeDifference(LastTime1,thisTime);
     if(diff>Period){
        jitter = (diff-Period+4)/8;  // in 0.1 us 
-     }else{
-        jitter = (Period-diff+4)/8;  // in 0.1 us
-      }
+    }else{
+       jitter = (Period-diff+4)/8;  // in 0.1 us
+    }
 			
-			//dump[work1] = jitter;
+		//dump[work1] = jitter;
 			
-      if(jitter > MaxJitter){
-        MaxJitter = jitter; // in usec
-      }       // jitter should be 0
-      if(jitter >= JitterSize){
-        jitter = JitterSize-1;
-      }
-      JitterHistogram1[jitter]++; 
-		}
+    if(jitter > MaxJitter){
+      MaxJitter = jitter; // in usec
+    }       // jitter should be 0
+    if(jitter >= JitterSize){
+      jitter = JitterSize-1;
+    }
+    JitterHistogram1[jitter]++; 
+	}
 		
-		LastTime1 = thisTime;
+	LastTime1 = thisTime;
 		
 	(*WidePeriodicTask1)();            // execute user task
 }
