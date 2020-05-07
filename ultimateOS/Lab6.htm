@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Lab6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Lab6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu May 07 16:41:48 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu May 07 16:47:45 2020
 <BR><P>
 <H3>Maximum Stack Usage =        288 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -103,7 +103,7 @@ Function Pointers
  <LI><a href="#[5f]">I2C4_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[60]">I2C5_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[3e]">I2S0_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[7e]">Idle</a> from lab6.o(i.Idle) referenced from lab6.o(i.AppMain)
+ <LI><a href="#[7e]">Idle</a> from lab7.o(i.Idle) referenced from lab7.o(i.AppMain)
  <LI><a href="#[5e]">LPC0_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[3]">MemManage_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[86]">MoveBall</a> from pong.o(i.MoveBall) referenced from pong.o(i.Pong)
@@ -124,7 +124,7 @@ Function Pointers
  <LI><a href="#[8]">PendSV_Handler</a> from osasm.o(.text) referenced from startup.o(RESET)
  <LI><a href="#[88]">PlayerLeft</a> from pong.o(i.PlayerLeft) referenced from pong.o(i.Pong)
  <LI><a href="#[87]">PlayerRight</a> from pong.o(i.PlayerRight) referenced from pong.o(i.Pong)
- <LI><a href="#[7f]">Pong</a> from pong.o(i.Pong) referenced from lab6.o(i.AppMain)
+ <LI><a href="#[7f]">Pong</a> from pong.o(i.Pong) referenced from lab7.o(i.AppMain)
  <LI><a href="#[17]">Quadrature0_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[30]">Quadrature1_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[63]">Quadrature2_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -176,7 +176,7 @@ Function Pointers
  <LI><a href="#[5a]">WideTimer5A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[5b]">WideTimer5B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[81]">incrementTime</a> from os.o(i.incrementTime) referenced from os.o(i.OS_Init)
- <LI><a href="#[7c]">main</a> from lab6.o(i.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
+ <LI><a href="#[7c]">main</a> from lab7.o(i.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
  <LI><a href="#[80]">sleepTask</a> from os.o(i.sleepTask) referenced from os.o(i.OS_Init)
  <LI><a href="#[39]">uDMA_Error</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[38]">uDMA_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -578,27 +578,27 @@ Global Symbols
 <P><STRONG><a name="[10b]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
 
 <P><STRONG><a name="[b4]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
+<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddThread
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
-<LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
 </UL>
 
 <P><STRONG><a name="[b8]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
+<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddThread
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
-<LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
 </UL>
 
 <P><STRONG><a name="[b1]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
@@ -622,11 +622,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 68 + Unknown Stack Size
 <LI>Call Chain = SVC_Handler &rArr; OS_Kill &rArr; Heap_Free &rArr; mergeWithBot
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
+<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Time
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Id
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddThread
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Time
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
@@ -656,7 +656,7 @@ Global Symbols
 <P><STRONG><a name="[1b]"></a>ADC0Seq3_Handler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, adct0atrigger.o(i.ADC0Seq3_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[94]"></a>AppMain</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, lab6.o(i.AppMain))
+<P><STRONG><a name="[94]"></a>AppMain</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, lab7.o(i.AppMain))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = AppMain &rArr; OS_Init &rArr; eFile_Mount &rArr; f_mount &rArr; find_volume &rArr; check_fs &rArr; move_window &rArr; sync_window &rArr; eDisk_Write &rArr; send_cmd &rArr;  send_cmd (Cycle)
 </UL>
@@ -766,10 +766,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Init
 </UL>
 
-<P><STRONG><a name="[7e]"></a>Idle</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, lab6.o(i.Idle))
+<P><STRONG><a name="[7e]"></a>Idle</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, lab7.o(i.Idle))
 <BR><BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WaitForInterrupt
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> lab6.o(i.AppMain)
+<BR>[Address Reference Count : 1]<UL><LI> lab7.o(i.AppMain)
 </UL>
 <P><STRONG><a name="[a2]"></a>IntDisable</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, interrupt.o(i.IntDisable))
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANRegRead
@@ -795,16 +795,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 52 + Unknown Stack Size
 <LI>Call Chain = OS_AddThread &rArr; malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetInitialStack
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetInitialStack
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppMain
-<LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
+<BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppMain
 </UL>
 
 <P><STRONG><a name="[c2]"></a>OS_ClearMsTime</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, os.o(i.OS_ClearMsTime))
@@ -819,47 +819,47 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = OS_Init &rArr; eFile_Mount &rArr; f_mount &rArr; find_volume &rArr; check_fs &rArr; move_window &rArr; sync_window &rArr; eDisk_Write &rArr; send_cmd &rArr;  send_cmd (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_ClearMsTime
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap_Init
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LaunchPad_Init
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eFile_Mount
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eFile_Mount
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eFile_Init
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WideTimer0A_Init
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Init
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5A_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap_Init
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_ClearMsTime
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LaunchPad_Init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
 </UL>
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppMain
 </UL>
 
 <P><STRONG><a name="[cd]"></a>OS_InitSemaphore</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, os.o(i.OS_InitSemaphore))
-<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Init
+<BR><BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
 </UL>
 
 <P><STRONG><a name="[8f]"></a>OS_Kill</STRONG> (Thumb, 152 bytes, Stack size 24 bytes, os.o(i.OS_Kill))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68 + Unknown Stack Size
 <LI>Call Chain = OS_Kill &rArr; Heap_Free &rArr; mergeWithBot
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
+<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap_Free
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap_Free
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerRight
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerLeft
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PaddleAI
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveBall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
 </UL>
 
 <P><STRONG><a name="[97]"></a>OS_Launch</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, os.o(i.OS_Launch))
@@ -875,14 +875,17 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
 <LI>Call Chain = OS_Signal &rArr; addToActive
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;addToActive
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copySoftwareToHardware
+<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_bSignal
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copySoftwareToHardware
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copyHardwareToSoftware
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_bSignal
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReceiveDataFilter
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266RxToBuffer
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266BufferToTx
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SignalRight
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SignalLeft
@@ -890,19 +893,16 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerLeft
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PaddleAI
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveBall
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReceiveDataFilter
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266RxToBuffer
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266BufferToTx
 </UL>
 
 <P><STRONG><a name="[90]"></a>OS_Sleep</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, os.o(i.OS_Sleep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
 <LI>Call Chain = OS_Sleep &rArr; unlinkNodeFromActive
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
@@ -911,8 +911,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c8]"></a>OS_Suspend</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, os.o(i.OS_Suspend))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<BR><BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
 </UL>
 
@@ -931,18 +931,18 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
 <LI>Call Chain = OS_Wait &rArr; unlinkNodeFromActive
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlinkNodeFromActive
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Suspend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_bWait
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerRight
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PlayerLeft
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PaddleAI
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
 </UL>
 
 <P><STRONG><a name="[ca]"></a>OS_bSignal</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, os.o(i.OS_bSignal))
@@ -971,20 +971,20 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = Pong &rArr; ST7735_OutString &rArr; ST7735_OutChar &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddSW2Task
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitSemaphore
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddThread
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddSW2Task
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddSW1Task
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutString
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> lab6.o(i.AppMain)
+<BR>[Address Reference Count : 1]<UL><LI> lab7.o(i.AppMain)
 </UL>
-<P><STRONG><a name="[96]"></a>PortD_Init</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, lab6.o(i.PortD_Init))
+<P><STRONG><a name="[96]"></a>PortD_Init</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, lab7.o(i.PortD_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppMain
 </UL>
 
@@ -1024,9 +1024,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
 </UL>
 
 <P><STRONG><a name="[d7]"></a>ST7735_DrawPixel</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, st7735.o(i.ST7735_DrawPixel))
@@ -1067,9 +1067,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
 </UL>
 
 <P><STRONG><a name="[bf]"></a>ST7735_InitR</STRONG> (Thumb, 98 bytes, Stack size 8 bytes, st7735.o(i.ST7735_InitR))
@@ -1106,17 +1106,17 @@ Global Symbols
 <P><STRONG><a name="[e0]"></a>ST7735_OutUDec</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, st7735.o(i.ST7735_OutUDec))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ST7735_OutUDec &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillmessage
+<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillmessage
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
 </UL>
 
 <P><STRONG><a name="[d1]"></a>ST7735_SetCursor</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, st7735.o(i.ST7735_SetCursor))
-<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateScore
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pong
 </UL>
 
 <P><STRONG><a name="[8d]"></a>Scheduler</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, os.o(i.Scheduler))
@@ -1131,11 +1131,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 76 + Unknown Stack Size
 <LI>Call Chain = SysTick_Handler &rArr; OS_Kill &rArr; Heap_Free &rArr; mergeWithBot
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutString
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ContextSwitch
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutString
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ContextSwitch
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
@@ -1169,8 +1169,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ea]"></a>TxFifo_Put</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, uart0int.o(i.TxFifo_Put))
-<BR><BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutCharNonBlock
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
+<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutCharNonBlock
 </UL>
 
 <P><STRONG><a name="[e5]"></a>TxFifo_Size</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, uart0int.o(i.TxFifo_Size))
@@ -1344,8 +1344,8 @@ Global Symbols
 <P><STRONG><a name="[c6]"></a>free</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, malloc.o(i.free))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleepTask
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleepTask
 </UL>
 
 <P><STRONG><a name="[ae]"></a>inHeap</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, heap.o(i.inHeap))
@@ -1353,7 +1353,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validPointer
 </UL>
 
-<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, lab6.o(i.main))
+<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, lab7.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 288 + Unknown Stack Size
 <LI>Call Chain = main &rArr; AppMain &rArr; OS_Init &rArr; eFile_Mount &rArr; f_mount &rArr; find_volume &rArr; check_fs &rArr; move_window &rArr; sync_window &rArr; eDisk_Write &rArr; send_cmd &rArr;  send_cmd (Cycle)
 </UL>
@@ -1391,9 +1391,9 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleepTask
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
+<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_AddThread
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleepTask
 </UL>
 
 <P><STRONG><a name="[81]"></a>incrementTime</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, os.o(i.incrementTime))
@@ -1415,8 +1415,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 </UL>
 
@@ -1427,8 +1427,8 @@ Local Symbols
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
 </UL>
 
 <P><STRONG><a name="[dc]"></a>commonInit</STRONG> (Thumb, 346 bytes, Stack size 8 bytes, st7735.o(i.commonInit))
@@ -1462,19 +1462,19 @@ Local Symbols
 <P><STRONG><a name="[de]"></a>writecommand</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, st7735.o(i.writecommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = writecommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 </UL>
 
 <P><STRONG><a name="[db]"></a>writedata</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, st7735.o(i.writedata))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = writedata
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 </UL>
 
 <P><STRONG><a name="[e6]"></a>copyHardwareToSoftware</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, uart0int.o(i.copyHardwareToSoftware))
@@ -1496,9 +1496,9 @@ Local Symbols
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TxFifo_Size
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TxFifo_Get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutCharNonBlock
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutCharNonBlock
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Handler
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
 </UL>
 
 <P><STRONG><a name="[f2]"></a>deselect</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, edisk.o(i.deselect))
@@ -1627,8 +1627,8 @@ Local Symbols
 <P><STRONG><a name="[fc]"></a>get_ldnumber</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, ff.o(i.get_ldnumber))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = get_ldnumber
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
 </UL>
 
 <P><STRONG><a name="[ed]"></a>move_window</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, ff.o(i.move_window))
@@ -1736,15 +1736,15 @@ Local Symbols
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionCheck
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallReset
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> pong.o(i.UpdateScore)
-<LI> pong.o(i.Pong)
+<BR>[Address Reference Count : 2]<UL><LI> pong.o(i.Pong)
+<LI> pong.o(i.UpdateScore)
 </UL>
 <P><STRONG><a name="[85]"></a>PaddleAI</STRONG> (Thumb, 194 bytes, Stack size 16 bytes, pong.o(i.PaddleAI))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84 + Unknown Stack Size
 <LI>Call Chain = PaddleAI &rArr; OS_Kill &rArr; Heap_Free &rArr; mergeWithBot
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Wait
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sleep
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Signal
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Kill
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect

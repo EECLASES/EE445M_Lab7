@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "Pong.h"
+#include "../RTOS_Labs_common/Pong.h"
 #include "../inc/ST7735.h"
 #include "../RTOS_Labs_common/OS.h"
 #include "../inc/WTimer1A.h"

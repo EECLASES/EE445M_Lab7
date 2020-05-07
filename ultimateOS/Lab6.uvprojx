@@ -398,11 +398,6 @@
               <FilePath>..\inc\PLL.c</FilePath>
             </File>
             <File>
-              <FileName>Lab6.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Lab6.c</FilePath>
-            </File>
-            <File>
               <FileName>OS.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\RTOS_Labs_common\OS.c</FilePath>
@@ -543,14 +538,14 @@
               <FilePath>..\RTOS_Labs_common\CommandExecute.c</FilePath>
             </File>
             <File>
-              <FileName>Pong.c</FileName>
+              <FileName>Lab7.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Pong.c</FilePath>
+              <FilePath>..\src\Lab7.c</FilePath>
             </File>
             <File>
-              <FileName>Pong.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Pong.h</FilePath>
+              <FileName>Pong.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\Pong.c</FilePath>
             </File>
           </Files>
         </Group>

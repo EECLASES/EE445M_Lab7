@@ -44,7 +44,7 @@
 #include "../RTOS_Labs_common/eDisk.h"
 #include "../RTOS_Labs_common/can0.h"
 #include "../RTOS_Labs_common/esp8266.h"
-#include "./Pong.h"
+#include "../RTOS_Labs_common/Pong.h"
 
 // CAN IDs are set dynamically at time of CAN0_Open
 // Reverse on other microcontroller
