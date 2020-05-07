@@ -3,8 +3,11 @@
 .\commandexecute.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\commandexecute.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\commandexecute.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/ST7735.h
 .\commandexecute.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/tm4c123gh6pm.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/CortexM.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/LaunchPad.h
+.\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/ST7735.h
 .\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/OS.h
 .\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/OS.h
 .\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/../RTOS_Labs_common/PCB.h
@@ -15,3 +18,5 @@
 .\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/esp8266.h
 .\commandexecute.o: ..\RTOS_Labs_common\../inc/loader.h
 .\commandexecute.o: ..\RTOS_Labs_common\../RTOS_Labs_common/Interpreter.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/Command.h
+.\commandexecute.o: ..\RTOS_Labs_common\../inc/../inc/CommandExecute.h

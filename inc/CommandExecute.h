@@ -25,3 +25,9 @@ void Measurements_Command(char* args[]);
 void Filesys_Command(char* args[]);
 
 void Load_Command(char* args[]);
+
+void Wifi_Command(char* args[]);
+
+void Client_Command(char* args[]);
+
+void LED_Command(char* args[]);

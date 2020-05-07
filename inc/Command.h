@@ -13,8 +13,9 @@
 #include "../inc/CommandExecute.h"	//holds the function definitions
 #include <stdint.h>
 //print adc value, print ostimer, clear ostimer
-#define NUMCOMMANDS 8
-
+#define NUMCOMMANDS 11
+#define RPC_NUM 23
+#define MAX_ARGS 10
 
 typedef void(*functionPtr)(char* args[]);
 
@@ -23,16 +24,13 @@ typedef struct {
 	functionPtr command;
 }PartCommands;		
 
+typedef struct {
+	char* human;
+	char* protocol;
+}RPC_Convert;
+
+extern RPC_Convert RPC_Protocol[RPC_NUM];
 
 //array for struct of commands
-PartCommands Commands[NUMCOMMANDS] = {		
-	{"help", &Help_Command},
-	{"lcd_top", &Lcd_Top_Command},
-	{"lcd_bot", &Lcd_Bot_Command},
-	{"os_ms", &Os_Ms_Command},
-	{"adc", &Adc_Command},
-	{"measurements", &Measurements_Command},
-	{"filesys", &Filesys_Command},
-	{"load", &Load_Command}
-};
+extern PartCommands Commands[NUMCOMMANDS];
 

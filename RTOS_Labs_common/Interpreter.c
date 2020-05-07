@@ -28,6 +28,59 @@
 WifiStatus wifiStatus; 
 int ServerID = -1;
 
+//array for struct of commands
+PartCommands Commands[NUMCOMMANDS] = {		
+	{"help", &Help_Command},
+	{"lcd_top", &Lcd_Top_Command},
+	{"lcd_bot", &Lcd_Bot_Command},
+	{"os_ms", &Os_Ms_Command},
+	{"adc", &Adc_Command},
+	{"measurements", &Measurements_Command},
+	{"filesys", &Filesys_Command},
+	{"load", &Load_Command},
+	{"Wifi", &Wifi_Command},
+	{"client", &Client_Command},
+	{"led", &LED_Command}
+
+};
+
+//array for struct of RPC protocols
+RPC_Convert RPC_Protocol[RPC_NUM] = {		
+	{"help", "0"},
+	{"lcd_top", "1"},
+	{"lcd_bot", "2"},
+	{"os_ms", "3"},
+	{"adc", "4"},
+//	{"measurements", "5"},
+	{"filesys", "6"},
+	{"load", "7"},
+//	{"Wifi", "8"},
+//	{"client", "9"},
+	{"led", "10"},
+
+	//os_ms (for os_time)
+	{"clear", "cr5"},
+	{"show", "sw4"},
+	//adc
+	{"sample", "se6"},
+	//load  (axf files)
+	{"user", "ur4"},
+	//filesys
+	{"start", "st5"},
+	{"format", "ft6"},
+	{"pdir", "pr4"},
+	{"create", "ce6"},
+	{"write", "we5"},
+	{"pfile", "pe5"},
+	{"delete", "de6"},
+	{"close", "ce5"},
+	//led on/off
+	{"red", "rd3"},
+	{"green", "gn5"},
+	{"blue", "be4"},
+
+};
+
 void OutCRLF(void){
   UART_OutChar(CR);
   UART_OutChar(LF);
@@ -115,7 +168,7 @@ void Interpreter_InString() {
 void Interpreter(void){ 
   // initialize values
 	char input[40];
-	char* args[10];  //temp size for testing strtok 
+	char* args[MAX_ARGS];  //temp size for testing strtok 
 	//initialize wifi struct
 	wifiStatus.initEnable = 0;
 	wifiStatus.connected = 0;
@@ -141,11 +194,12 @@ void Interpreter(void){
 		for(uint32_t i = 0; i < NUMCOMMANDS; i++){
 			if(strcmp(args[0], Commands[i].trigger) == 0){
 				Commands[i].command(args);
+				break;
 			}
 		}
 		
 		//cleans the array for future commands
-		for(uint8_t i = 0; i < 10; i++){				//quick test code
+		for(uint8_t i = 0; i < MAX_ARGS; i++){				//quick test code
 			args[i] = NULL;
 		}
 	}
@@ -154,39 +208,25 @@ void Interpreter(void){
 //##################Start of new functions by Miguel ###########//
 
 /* Wifi connection  
-	Connection to other tm4c
+
 Slave/Client side
-	1. turn device on
-	2. turn on wifi
-	3. turn on enableConnections() (stays until turned off by user)
-	4. branch off to some waiting system to wait for incoming tm4c waitForTm4c()
-	5. say yes or no to connection
-	6. you are connected!
+	1. turn on wifi_switch()  --> wifi on
+	2. turn on wifi_client() ---> wifi client
+	3. now connected --> no command
+		3a. send commands from interpreter --> client [blank] ...
+		3b. if( "wifi off" ) called, close tm4c
+		3c. loop #3
+	
 
 Master
-	1. same
-	2. same
-	3. same 
-	4. branch off to requestingTm4c() (name or ssid if you need params)
-	5. you are connected.
-	
+	1. turn on wifi_switch()  --> wifi on
+	2. turn on wifi_server() ---> wifi server
+	3. waiting system to wait for tm4c()  --> no command
+
+
 
 
 */
-
-
-/* Once connection has been established
-	we implement the functions
-	
-
-
-*/
-
-
-
-
-
-
 
 
 
@@ -198,35 +238,6 @@ Enables a thread to wait for a connection to pop up Once a semaphore gets freed
 			bool success/true 
 			
 Command "Wifi on" would call this function(1);
-*/
-
-
-/*
-	ESP8266_Init
-	ESP8266_Connect	----	these two connect to wifi
-	
-	ESP8266_MakeTCPConnection -- opens socket to web server
-	
-	//client things
-	ESP8266_Send
-	ESP8266_Receive
-	
-	//server things
-	ESP8266_StartServer
-	while(1){
-		ESP8266_WaitForConnection
-		
-		//serving HTTP request
-		ESP8266_Receive - if fail ESP8266_CloseTCPConnection
-		check for ___ request
-		ESP8266_SendBuffered - for return values
-		
-		// The ESP driver only supports one connection, wait for the thread to complete
-    OS_Wait(&WebServerSema);
-	}
-	
-	
-	ESP8266_CloseTCPConnection
 */
 void Wifi_Switch( bool mode){
 /* method:b013ea4c481621eb848fc292a1d1126c7cb110f3
@@ -270,10 +281,10 @@ void Wifi_Switch( bool mode){
 		}
 	}
 }
+char Response1[64];
 
-void Wifi_Client(bool mode){
+void Wifi_Client(){
 	
-	if (mode == true){
 		//does init (executed only once)
 		if(wifiStatus.initEnable == 0){
 			if(!ESP8266_Init(true,false)) {  // verbose rx echo on UART for debugging
@@ -294,34 +305,41 @@ void Wifi_Client(bool mode){
 				ST7735_DrawString(0,1,"Wifi connected",ST7735_GREEN);
 				wifiStatus.connected = true;
 		}
-		//ESP8266_StartServer(80,600); add to enable connections
-		if(!ESP8266_MakeTCPConnection("api.openweathermap.org", 80, 0)){ // open socket to web server on port 80 !!!!!!!!!!!! change to other microcontroller
+
+		//assuming client is connected (add code later)
+		if(!ESP8266_MakeTCPConnection("192.168.1.136", 4000, 0)){ // open socket to web server on port 80 !!!!!!!!!!!! change to other microcontroller
+
 			ST7735_DrawString(0,2,"Connection failed",ST7735_YELLOW); 
 		}    
 		
+		OS_Kill();
+		
+		//add interpreter again
 		/*
 		// Send request to server
-		if(!ESP8266_Send(Fetch)){
-			ST7735_DrawString(0,2,"Send failed",ST7735_YELLOW); 
-			ESP8266_CloseTCPConnection();
-		}    
-		// Receive response
-		if(!ESP8266_Receive(Response, 64)) {
-			ST7735_DrawString(0,2,"No response",ST7735_YELLOW); 
-			ESP8266_CloseTCPConnection();
-		} */
+  (!ESP8266_Send("hello")){
+    ST7735_DrawString(0,2,"Send failed",ST7735_YELLOW); 
+    ESP8266_CloseTCPConnection();
+    OS_Kill();
+  }    
+  */
 		
+		//OS_Kill();
+		// Send request to server
+//		if(!ESP8266_Send("hello")){
+//			ST7735_DrawString(0,2,"Send failed",ST7735_YELLOW); 
+//			ESP8266_CloseTCPConnection();
+//		}    
+		// Receive response
+//		if(!ESP8266_Receive(Response, 64)) {
+//			ST7735_DrawString(0,2,"No response",ST7735_YELLOW); 
+//			ESP8266_CloseTCPConnection();
+//		}
+	
 	
 		
-	}
-	else if(mode == false){
-		if(wifiStatus.connected){	//only disconnect when connected
-			ESP8266_CloseTCPConnection();
-			wifiStatus.connected = false;
-		}
-	}
-}
 
+}
 
 Sema4Type ServerSema;
 bool KillServer;
@@ -331,6 +349,7 @@ void ServeRequest(void){
   ST7735_DrawString(0,3,"Connected           ",ST7735_YELLOW); 
   ServerID = OS_Id();	//this thread calls the functions so this ID needs to be the one for wrapper to determine
 	
+	while(1){
   // Receive request
   if(!ESP8266_Receive(WiFiResponse, 64)){
     ST7735_DrawString(0,3,"No request",ST7735_YELLOW); 
@@ -343,7 +362,13 @@ void ServeRequest(void){
   //if(strncmp(Response, "GET", 3) == 0) 
 	
 	//do processing request here
-	char* args[5];
+	char* args[MAX_ARGS];
+	
+	//cleans the array
+	for(uint8_t i = 0; i < MAX_ARGS; i++){				//quick test code
+		args[i] = NULL;
+	}
+	
 	//parses command and puts tokens into args array
 	char* token = strtok(WiFiResponse, " ");
 	for(uint8_t i = 0; token != NULL; i++){ //quick test code
@@ -351,23 +376,23 @@ void ServeRequest(void){
 			token = strtok(NULL, " ");
 	}
 	
-	int index = atoi(args[0]);	//for RPC - first argument is function's place in Command array
-	if(index < NUMCOMMANDS){
-		args[0] = "w";	//decode signal
-		Commands[index].command(args);
+	//args should be client + (encoded) regular command prompt at this point
+
+	if(strcmp(args[0], "client") == 0){
+		int index = atoi(args[1]);
+		if(index < NUMCOMMANDS){
+			Commands[index].command(args);
+		}
 	}
-	
+	}	
 	ServerID = -1;
-	
-	//cleans the array for future commands
-	for(uint8_t i = 0; i < 5; i++){				//quick test code
-		args[i] = NULL;
-	}
 	
 	//end of processing
 	
-  ESP8266_CloseTCPConnection();
+ // ESP8266_CloseTCPConnection();
+	
   OS_Signal(&ServerSema);
+
   OS_Kill();
 }
 
@@ -390,25 +415,28 @@ void Wifi_Server(){
 		}
 		wifiStatus.connected = true;
 		ST7735_DrawString(0,1,"Wifi connected",ST7735_GREEN);
-		if(!ESP8266_StartServer(3626,600)) {  // port 80, 5min timeout
+		if(!ESP8266_StartServer(4000,600)) {  // port 80, 5min timeout
 			ST7735_DrawString(0,2,"Server failure",ST7735_YELLOW); 
 			OS_Kill();
 		}  
 		ST7735_DrawString(0,2,"Server started",ST7735_GREEN);
 		KillServer = false;
 		
+		OS_InitSemaphore(&ServerSema, 0);
+		
 		while(1) {
 			// Wait for connection
 			ESP8266_WaitForConnection();
 			
 			// Launch thread with higher priority to serve request
-			OS_AddThread(&ServeRequest,128,1);
+			OS_AddThread(&ServeRequest,128,1);	
 			
 			// The ESP driver only supports one connection, wait for the thread to complete
 			OS_Wait(&ServerSema);
 			
 			if(KillServer){
 				wifiStatus.connected = false;
+				ESP8266_DisableServer();
 				OS_Kill();		//allows server function to stop
 			}
 		}
@@ -416,7 +444,7 @@ void Wifi_Server(){
 }
 
 void Disconnect_Server(){
-	KillServer = true;
+	ESP8266_CloseTCPConnection();
 }
 /********Tm4c_model_enable********//*
 	
@@ -426,6 +454,7 @@ void Disconnect_Server(){
 			bool success/true 
 */
 bool checkTm4cMode(){
+return 1;
 
 
 	
@@ -436,12 +465,13 @@ bool acceptTm4c(WifiStatus *status){
 
 //: must ping once requesting connection (probably will be respond yes to the interpreter)
 
-
+return 1;
 
 }
 bool requestTm4c(WifiStatus *status, char* urlsshwhatever){
 
 
+return 1;
 
 }
 /* ADC_In()   */
@@ -469,33 +499,11 @@ bool requestTm4c(WifiStatus *status, char* urlsshwhatever){
 
 //}
 
-
-/* ST7734_Message()   */
-// Output a message on the remote display
-/* 	method:
-	1.	make sure intrepreter gets message 
-	2.	send message 
-*/
-void ST7734_Message();
-
 /* LED_xxx()   */
 // Allow remote LEDs to be toggled on or off
 /* 	method:
 */
-void LED_xxx();
-
-
-/* eFile_xxx()   */
-//	Remote file system access 
-/* 	method:
-*/
-void eFile_xxx();
-
-/* exec_elf()   */
-//	Remote execute a given program on the disk	
-/* 	method:
-*/
-void exec_elf();
+void LED_xxx(void);
 
 
 

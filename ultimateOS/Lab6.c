@@ -486,6 +486,32 @@ int Testmain3(void){   // Testmain3
   return 0;               // this never executes
 }
 
+int Testmain4(void){   // Testmain3
+	OS_Init();           // initialize, disable interrupts
+  PortD_Init();
+  Heap_Init(); 
+  Running = 1; 
+	MaxJitter = 0;    // in 1us units
+  
+	  // hardware init
+  ADC_Init(0);  // sequencer 3, channel 0, PE3, sampling in Interpreter
+  CAN0_Open(RCV_ID,XMT_ID); 
+	
+  // attach background tasks
+  OS_AddSW1Task(&SW1Push2,2);
+  
+	// attach background tasks
+  OS_AddPeriodicThread(&disk_timerproc,TIME_1MS,0);   // time out routines for disk  
+	
+  // create initial foreground threads
+  NumCreated = 0 ;
+  NumCreated += OS_AddThread(&Idle,128,4); 
+  NumCreated += OS_AddThread(&Interpreter,128,3); 
+ 
+  OS_Launch(10*TIME_1MS); // doesn't return, interrupts enabled in here
+  return 0;               // this never executes
+}
+
 int AppMain(void){
 	OS_Init();           // initialize, disable interrupts
   PortD_Init();

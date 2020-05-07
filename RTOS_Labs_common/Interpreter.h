@@ -23,7 +23,6 @@ typedef struct WifiStatus {
 } WifiStatus;
 
 
-void Jitter(void);
 
 /**
  * @details  Run the user interface.
@@ -35,7 +34,8 @@ void Interpreter(void);
 
 void Wifi_Switch(bool mode);
 void Wifi_Server(void);
-void Wifi_Client(bool mode);
+void Wifi_Client(void);
+void Disconnect_Server(void);
 
 //Outstring code from labdoc
 void Interpreter_OutString(char *s);
