@@ -176,10 +176,32 @@ static void MoveBall(void){
 			Ball.dx *= -1;
 		}
 		if(CollisionCheck(Ball, Paddles[0])){
+			uint32_t padMid = (Paddles[0].x + Paddles[0].w) / 2;
+			
 			Ball.dy *= -1;
+			
+			if(Ball.x < padMid){
+				Ball.dx = (padMid - Ball.x) / 2;	//bounces based on how far from center 
+			}else if(Ball.x > padMid){
+				Ball.dx = (Ball.x - padMid) / 2;
+			}else{	//straight in middle
+				Ball.dx = 0;
+			}
+			
+			
 		}
 		if(CollisionCheck(Ball, Paddles[1])){
+			uint32_t padMid = (Paddles[1].x + Paddles[1].w) / 2;
+			
 			Ball.dy *= -1;
+			
+			if(Ball.x < padMid){
+				Ball.dx = -1* (padMid - Ball.x) / 2;	//bounces based on how far from center 
+			}else if(Ball.x > padMid){
+				Ball.dx = -1* (Ball.x - padMid) / 2;
+			}else{	//straight in middle
+				Ball.dx = 0;
+			}
 		}
 		
 //		OS_Signal(&AIPadMutex);
