@@ -464,7 +464,7 @@ int Lab2Testmain3(void){  // Lab2Testmain3
   Lab2PortD_Init();       // profile user Lab2Threads
   Lab2NumCreated = 0 ;
   Lab2NumCreated += OS_AddThread(&Lab2Thread2c,128,0); 
-  Lab2NumCreated += OS_AddThread(&Lab2Thread3c,128,0); 
+  Lab2NumCreated += OS_AddThread(&Lab2Thread3c,128,3); 
   // Lab2Count3 should be larger than Lab2Count2, Lab2Count1 should be 42
  
   OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here
@@ -530,7 +530,7 @@ int Lab2Testmain4(void){   // Lab2Testmain4
   Lab2NumCreated = 0 ;
   OS_AddSW1Task(&BackgroundLab2Thread5d,2);
   Lab2NumCreated += OS_AddThread(&Lab2Thread2d,128,0); 
-  Lab2NumCreated += OS_AddThread(&Lab2Thread3d,128,0); 
+  Lab2NumCreated += OS_AddThread(&Lab2Thread3d,128,5); 
   Lab2NumCreated += OS_AddThread(&Lab2Thread4d,128,0); 
 	
   OS_Launch(TIME_2MS); // doesn't return, interrupts enabled in here

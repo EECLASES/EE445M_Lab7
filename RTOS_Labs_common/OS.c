@@ -866,12 +866,12 @@ int OS_AddPeriodicThread(void(*task)(void),
 	if( periodicTasks == 0){	//WT1A is currently disabled
 		Period1 = period;
 
-		WideTimer1A_Init(task, period, priority+2);	 	//!!!priority things
+		WideTimer1A_Init(task, period, priority);	 	//!!!priority things
 		periodicTasks++;
 	}else if( periodicTasks == 1 ){	//WT1B is currently disabled 
 		Period2 = period;
 
-		WideTimer1B_Init( task, period, priority+2);
+		WideTimer1B_Init( task, period, priority);
 		periodicTasks++;
 	}else{
 		EndCritical(sr);
@@ -1293,7 +1293,7 @@ int OS_Fifo_Put(uint32_t data){
 	OSPutI = (OSPutI + 1) % FIFOSIZE; 
 
 //	OS_bSignal(&Mutex);
-//	OS_Signal(&DataAvailable);
+	OS_Signal(&DataAvailable);
 	
 	EndCritical(sr);
 	//OS_bSignal(&Mutex);
@@ -1313,8 +1313,8 @@ uint32_t OS_Fifo_Get(void){
 	
   //	working get, not good for background tasks?
 	//OS_Wait(&DataAvailable);
-	//OS_Wait(&DataAvailable);
-	//OS_bWait(&Mutex);
+	OS_Wait(&DataAvailable);
+	OS_bWait(&Mutex);
 	
 	/*if(OSPutI == OSGetI){
 		OS_bSignal(&Mutex);
@@ -1323,7 +1323,7 @@ uint32_t OS_Fifo_Get(void){
 	} */
 	
 	
-	while(OSPutI == OSGetI){};
+	//while(OSPutI == OSGetI){};
 	uint32_t sr = StartCritical();
 	
 	uint32_t data = OSFifo[ OSGetI];
@@ -1331,7 +1331,7 @@ uint32_t OS_Fifo_Get(void){
 	
 	EndCritical(sr);
 	
-	//OS_bSignal(&Mutex);
+	OS_bSignal(&Mutex);
 	//OS_Signal(&DataRoomLeft); 
 	
 	return data;

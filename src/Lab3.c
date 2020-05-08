@@ -353,7 +353,7 @@ int Lab3Realmain(void){ // Lab3Realmain
   // create initial foreground threads
   Lab3NumCreated = 0;
   Lab3NumCreated += OS_AddThread(&Consumer,128,1); 
-  Lab3NumCreated += OS_AddThread(&Interpreter,128,2); 
+  //Lab3NumCreated += OS_AddThread(&Interpreter,128,2); 
   Lab3NumCreated += OS_AddThread(&Lab3Idle,128,5);  // Lab 3, at lowest priority 
  
   OS_Launch(10*TIME_1MS); // doesn't return, interrupts enabled in here
