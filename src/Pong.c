@@ -57,7 +57,7 @@ static void PaddleAI(void){
 		
 		OS_Signal(&AIPadMutex);
 		
-		OS_Sleep(150);	//a little slower than ball
+		OS_Sleep(130);	//a little slower than ball
 	}
 	
 	OS_Kill();
@@ -130,12 +130,12 @@ static bool CollisionCheck(ball_t ball, paddle_t paddle){
 	if(ball_left > pad_right || ball_right < pad_left) return false;	//if ball isn't in same columns don't bother
 	
 	//player paddle detection
-	if(ball_bot >= pad_top && (ball_bot - pad_top) <= ball.h){
+	if(ball_bot == pad_top){
 		return true;
 	}
 	
 	//opponent paddle detection
-	if(ball_top <= pad_bot && (pad_bot - ball_top) <= 0){
+	if(ball_top == pad_bot){
 		return true;
 	}
 	
@@ -153,8 +153,8 @@ static void MoveBall(void){
 		Ball.x += Ball.dx;
 		Ball.y += Ball.dy;
 		
-//		OS_Wait(&AIPadMutex);
-//		OS_Wait(&PlayerPadMutex);
+		OS_Wait(&AIPadMutex);
+		OS_Wait(&PlayerPadMutex);
 		
 		//scoring check
 		if(Ball.y < Paddles[1].y){	
@@ -176,36 +176,46 @@ static void MoveBall(void){
 			Ball.dx *= -1;
 		}
 		if(CollisionCheck(Ball, Paddles[0])){
-			uint32_t padMid = (Paddles[0].x + Paddles[0].w) / 2;
+			uint32_t padMid = Paddles[0].x + Paddles[0].w / 2;
+			int direction = 1;
 			
 			Ball.dy *= -1;
 			
+			if(Ball.dx < 0){
+				direction = -1;
+			}
+			
 			if(Ball.x < padMid){
-				Ball.dx = (padMid - Ball.x) / 2;	//bounces based on how far from center 
+				Ball.dx = direction *( (padMid - Ball.x) / 2);	//bounces based on how far from center 
 			}else if(Ball.x > padMid){
-				Ball.dx = (Ball.x - padMid) / 2;
+				Ball.dx = direction *( (Ball.x - padMid) / 2);
 			}else{	//straight in middle
-				Ball.dx = 0;
+				Ball.dx = direction;
 			}
 			
 			
 		}
 		if(CollisionCheck(Ball, Paddles[1])){
-			uint32_t padMid = (Paddles[1].x + Paddles[1].w) / 2;
+			uint32_t padMid = Paddles[1].x + Paddles[1].w / 2;
+			int direction = 1;
 			
 			Ball.dy *= -1;
 			
+			if(Ball.dx < 0){
+				direction = -1;
+			}
+			
 			if(Ball.x < padMid){
-				Ball.dx = -1* (padMid - Ball.x) / 2;	//bounces based on how far from center 
+				Ball.dx = direction *( (padMid - Ball.x) / 2);	//bounces based on how far from center 
 			}else if(Ball.x > padMid){
-				Ball.dx = -1* (Ball.x - padMid) / 2;
+				Ball.dx = direction *( (Ball.x - padMid) / 2);
 			}else{	//straight in middle
-				Ball.dx = 0;
+				Ball.dx = direction;
 			}
 		}
 		
-//		OS_Signal(&AIPadMutex);
-//		OS_Signal(&PlayerPadMutex);
+		OS_Signal(&AIPadMutex);
+		OS_Signal(&PlayerPadMutex);
 		
 		//draw new ball position
 		ST7735_FillRect(Ball.x, Ball.y, Ball.w, Ball.h, ST7735_WHITE);
@@ -213,8 +223,8 @@ static void MoveBall(void){
 		OS_Sleep(125);
 	}
 	
-//	OS_Signal(&AIPadMutex);
-//	OS_Signal(&PlayerPadMutex);
+	OS_Signal(&AIPadMutex);
+	OS_Signal(&PlayerPadMutex);
 	
 	OS_Kill();
 }
